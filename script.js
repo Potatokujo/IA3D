@@ -6,30 +6,62 @@ const caixaResultado = document.querySelector('.caixa-resultado');
 const perguntas = [
     {
         enunciado: "Você gosta da ideia de Inteligência Artificial?",
-        alternativas:["Sim","Não"]
+        alternativas: [
+            {
+                texto: "Sim",
+                afirmativa: "Afirmativa da alternativa 1"
+            },
+            {
+                texto: "Não",
+                afirmativa: "Afirmativa da alternativa 2"
+            }
+        ]
     },
     {
-        enunciado: "Você se sente seguro sobre a Inteligência Artificial?",
-        alternativas:["Sim","Não"]
+        enunciado: "Pergunta 2",
+        alternativas: [
+            {
+                texto: "Sim",
+                afirmativa: "Afirmativa da alternativa 1"
+            },
+            {
+                texto: "Não",
+                afirmativa: "Afirmativa da alternativa 2"
+            }
+        ]
     },
     {
-        enunciado: "Você pensa que o futuro da humanidade tem haver com a Inteligência Artificial?",
-        alternativas:["Sim","Não"]
+        enunciado: "Pergunta 3",
+        alternativas: [
+            {
+                texto: "Sim",
+                afirmativa: "Afirmativa da alternativa 1"
+            },
+            {
+                texto: "Não",
+                afirmativa: "Afirmativa da alternativa 2"
+            }
+        ]
     }
 ]
 
 let posicao = 0;
 let perguntaAtual;
 
-function mostraPergunta(){
+function mostraPergunta() {
     perguntaAtual = perguntas[posicao];
     caixaPergunta.textContent = perguntaAtual.enunciado;
     mostraAlternativas();
 }
-function mostraAlternativas(){
-    for(const alternativa of perguntaAtual.alternativa){
+function mostraAlternativas() {
+    for (const alternativa of perguntaAtual.alternativas) {
         const botaoAlternativas = document.createElement("button");
-        botaoAlternativas.textContent = alternativa;
+        botaoAlternativas.textContent = alternativa.texto;
+        botaoAlternativas.addEventListener("click",function(){
+            posicao++;
+            mostraPergunta();
+        });
         caixaAlternativa.appendChild(botaoAlternativas);
     }
 }
+mostraPergunta();
