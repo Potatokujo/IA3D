@@ -2,66 +2,69 @@ const caixaPrincipal = document.querySelector('.caixa-principal');
 const caixaPergunta = document.querySelector('.caixa-pergunta');
 const caixaAlternativa = document.querySelector('.caixa-alternativa');
 const caixaResultado = document.querySelector('.caixa-resultado');
+const textoResultado = document.querySelector('.texto-resultado');
 
-const perguntas = [
-    {
+const perguntas = [     //serve para abrir lista de perguntas
+    {   //abre o objeto das perguntas
         enunciado: "Você gosta da ideia de Inteligência Artificial?",
         alternativas: [
-            {
-                texto: "Sim",
-                afirmativa: "Afirmativa da alternativa 1"
-            },
-            {
-                texto: "Não",
-                afirmativa: "Afirmativa da alternativa 2"
-            }
-        ]
+            {texto: "Sim",
+            afirmação:"A IA vai dominar o mundo"}, 
+
+            {texto: "Não",
+            afirmação:"A IA não dominará o mundo"}]
     },
-    {
-        enunciado: "Pergunta 2",
+    { 
+        enunciado: "Você acha a IA perigosa?",
         alternativas: [
-            {
-                texto: "Sim",
-                afirmativa: "Afirmativa da alternativa 1"
-            },
-            {
-                texto: "Não",
-                afirmativa: "Afirmativa da alternativa 2"
-            }
-        ]
+            {texto: "Sim",
+            afirmação:"A IA logo tomará o lugar dos professores"}, 
+                
+            {texto: "Não",
+            afirmação:"A IA jamais tomará o lugar dos professores"}]
     },
-    {
-        enunciado: "Pergunta 3",
+    { 
+        enunciado: "O futuro da humanidade depende da IA?",
         alternativas: [
-            {
-                texto: "Sim",
-                afirmativa: "Afirmativa da alternativa 1"
-            },
-            {
-                texto: "Não",
-                afirmativa: "Afirmativa da alternativa 2"
-            }
-        ]
-    }
+            {texto: "Sim",
+            afirmação:"Sim, a IA será útil e está pronta para todos"}, 
+                
+            {texto: "Não",
+            afirmação:"Não, a IA não é para o uso de todos"}]
+    },
 ]
 
 let posicao = 0;
 let perguntaAtual;
+let respostas = "";
 
 function mostraPergunta() {
+    if (posicao >= perguntas.length){
+        mostraResultado();
+        return;
+    }
     perguntaAtual = perguntas[posicao];
     caixaPergunta.textContent = perguntaAtual.enunciado;
+    caixaAlternativa.textContent = " ";
     mostraAlternativas();
 }
 function mostraAlternativas() {
     for (const alternativa of perguntaAtual.alternativas) {
         const botaoAlternativas = document.createElement("button");
         botaoAlternativas.textContent = alternativa.texto;
-        botaoAlternativas.addEventListener("click",function(){
-            posicao++;
-            mostraPergunta();
-        });
+        botaoAlternativas.addEventListener("click",() => respostaSelecionada(alternativa));
         caixaAlternativa.appendChild(botaoAlternativas);
     }
+}
+function respostaSelecionada(opcaoSelecionada){
+    const afirmacoes = opcaoSelecionada.afirmativa;
+    respostas += afirmacoes;
+    posicao++;
+    mostraPergunta();
+}
+function mostraResultado(){
+    caixaPergunta.textContent = "Em 25 anos...";
+    textoResultado.textContent = respostas;
+    caixaAlternativa.textContent = "";
 }
 mostraPergunta();
